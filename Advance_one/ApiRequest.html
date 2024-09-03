@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Requests</title>
+    <style>
+         *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    </style>
+</head>
+<body style="background-color: #212121; color: azure;">
+    
+</body>
+<script>
+
+    const container = document.createElement("div")
+    container.id = "Container"
+    document.body.append(container)
+    container.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 900px;
+    width: 750px;
+    border: 2px solid white;
+    border-radius: 15px;
+    background-color: rgb(222, 152, 23);
+    color: azure;
+    font-weight: 600;
+    `
+    
+    const pic = document.createElement("div")
+    pic.id = "pic"
+    pic.style.cssText = `
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    height: 460px;
+    width: 460px;
+    border-radius: 15px;
+    margin-top: 70px;
+    `
+    container.appendChild(pic)
+
+    const button = document.createElement("button")
+    button.id = "button"
+    button.innerHTML = "MORE INFO"
+    button.style.cssText = `
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 100px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 25px;
+    font-weight: 600;
+    color: azure;
+    background-color: #212121;
+    `
+    container.appendChild(button)
+    
+    function addImage(imgUrl) {
+        const image = document.createElement("img");
+        image.src = imgUrl;
+        image.style.borderRadius = "15px"
+        pic.appendChild(image)
+    }
+
+
+   const xhr = new XMLHttpRequest()
+    let url ="https://api.github.com/users/hiteshchoudhary"
+    xhr.open('GET', url)
+    xhr.onreadystatechange = function(){
+        // console.log(xhr.readyState);
+        if(xhr.readyState === 4){
+            const data = JSON.parse(xhr.responseText)           //response if of type string we have to convert it to JSON
+             addImage(data.avatar_url)
+             
+             button.addEventListener('click',()=>{
+                const moreInfo = document.createElement("p")
+                    moreInfo.id = "info"
+                    moreInfo.innerHTML = ""
+                    moreInfo.style.cssText = `
+                    display: flex;
+                    flex-direction: center;
+                    align-items: center;
+                    justify-content: center;
+                    height: 180px;
+                    width: 480px;
+                    border: 2px solid white;
+                    border-radius: 15px;
+                    background-color: black;
+                    color: azure;
+                    font-weight: 400;
+                     margin-top: 8px;
+                     padding: 10px
+                    `
+                    container.append(moreInfo)
+                    function changeInfo(name, bio, followers, githubUrl){
+                    moreInfo.innerHTML = `Name : ${name} <br> <br> Bio : ${bio} <br><br> Followers : ${followers} <br><br> GitHub : ${githubUrl}`
+                }
+                 changeInfo(data.name, data.bio, data.followers, data.html_url)
+                 button.setAttribute('disabled', '')
+             })
+             
+             
+             
+        }
+    }
+    
+    xhr.send()
+
+</script>
+</html>

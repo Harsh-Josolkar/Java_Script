@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async setTimeOut function</title>
+</head>
+<body style="background-color: #414141; color: azure;">
+    <h1>Harsh</h1>
+    <button id ="stop">stop</button>
+</body>
+<script>
+     let seyHI = ()=>{
+        // alert(`Hi`)
+    }
+    // setTimeout(seyHI,1000)
+    let changeName =  ()=>{document.querySelector("h1").innerHTML = "Harsh Josolkar"}
+    let changeMe = setTimeout(changeName, 2000)
+
+    function main(){
+        if(document.querySelector("h1").innerHTML === 'Harsh Josolkar'){alert('You didnt stopped the event')}
+    }
+
+    setTimeout(main,2000 )
+
+    document.getElementById("stop").addEventListener('click', (e)=>{
+        clearTimeout(changeMe)
+        if(document.querySelector("h1").innerHTML === 'Harsh'){
+            alert('You STOPPED the event')
+            document.getElementById("stop").setAttribute('disabled', '')
+        }
+    })
+
+</script>
+</html>

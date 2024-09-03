@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dom3</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    <ul class="language">
+        <li>Javascirpt</li>
+    </ul>
+</body>
+<script>
+    //create an element
+    function addElement (lang){
+        const li = document.createElement("li")
+        li.appendChild(document.createTextNode(lang))
+        document.querySelector(".language").appendChild(li)
+    }
+    addElement("C++");
+
+    //Edit
+
+    const secondChild = document.querySelector("li:nth-child(2)");
+    // secondChild.innerHTML= "PACE"
+    const newli = document.createElement("li")
+    newli.textContent = "Cpp"
+    secondChild.replaceWith(newli)
+
+    //Remove
+    const removeElement = document.querySelector("li:last-child");
+    removeElement.remove()
+
+</script>
+</html>
